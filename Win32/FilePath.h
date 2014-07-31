@@ -1,10 +1,26 @@
-#include "file.h"
+/**
+@file : FilePath.h
+@author : ChumpMa#gmail.com
+@brief : 对文件和路径相关的常用操作的API使用示例
+@version : 0.0.0.1
+@date : 2013-10-28
+*/
+
+#ifndef FILE_PATH_H
+#define FILE_PATH_H
+
 #include <stdio.h>
 #include <string.h>
 #include <Windows.h>
 #include <Shlwapi.h>
 
-void MZWin32::RecursiveTraveralPath(const wchar_t* wszPath)
+namespace MZLib
+{
+
+/** 递归遍历文件夹并将所有文件依次输出
+@param wszPath 要遍历的文件夹
+*/
+void RecursiveTraveralPath(const wchar_t* wszPath);
 {
 	wchar_t wszFind[MAX_PATH] = {0};
 	wchar_t wszFindBack[MAX_PATH] = {0};
@@ -38,3 +54,7 @@ void MZWin32::RecursiveTraveralPath(const wchar_t* wszPath)
 		FindClose(hFind);
 	}
 }
+
+};
+
+#endif // FILE_PATH_H
