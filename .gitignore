@@ -19,3 +19,12 @@
 *.exe
 *.out
 *.app
+
+# Java
+*.class
+
+# Python
+*.pyc
+
+# Vim
+*.swp
