@@ -3,17 +3,15 @@ snippets
 
 My own snippets about following themes.
 
-1. [Win32](#win32)
-2. [DataStructure and Algorithm](#datastructrue-and-algorithm)
+* C++
+    * Algorithm
+        * bubble sort
+    * Win32
+        * file relation
+        * path traversal
 
-###Win32
-* file
-* registry
-* process
-* thread
-* path
-* etc.
+* Java
+    * date format
 
-
-###Datastructure and Algorithm
-* bubble sort
+* Python
+    * output redirect
