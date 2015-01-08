@@ -1,5 +1,5 @@
 /**
-@file : TraversalPath.h
+@file : PathTraversal.h
 @author : ChumpMa#gmail.com
 @website: http://www.mazhuang.org
 @brief : 遍历文件夹示例
@@ -7,8 +7,8 @@
 @date : 2013-10-28
 */
 
-#ifndef TRAVERSAL_PATH_H
-#define TRAVERSAL_PATH_H
+#ifndef PATH_TRAVERSAL_H
+#define PATH_TRAVERSAL_H
 
 #include <stdio.h>
 #include <string.h>
@@ -20,7 +20,7 @@
 /** 递归遍历文件夹并将所有文件依次输出
 @param wszPath 要遍历的文件夹
 */
-void RecursiveTraversalPath(const wchar_t* wszPath)
+void PathRecursiveTraversal(const wchar_t* wszPath)
 {
 	wchar_t wszFind[MAX_PATH] = {0};
 	wchar_t wszFindBack[MAX_PATH] = {0};
@@ -55,4 +55,4 @@ void RecursiveTraversalPath(const wchar_t* wszPath)
 	}
 }
 
-#endif // TRAVERSAL_PATH_H
+#endif // PATH_TRAVERSAL_H
