@@ -4,8 +4,11 @@
 @website: http://www.mazhuang.org
 @brief : 检测/设置/取消文件关联
 @version : 0.0.0.1
-@date : 2013-10-28
+@date : 2014-01-08
 */
+
+#ifndef FILE_RELATION_H
+#define FILE_RELATION_H
 
 /**
  检测指定文件扩展名的程序关联情况
@@ -259,3 +262,5 @@ void UnRegisterFileRelation(
 
 	SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, NULL, NULL); 
 }
+
+#endif // FILE_RELATION_H
