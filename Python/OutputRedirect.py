@@ -1,6 +1,6 @@
 import sys
 
-class RedirectOutput:
+class OutputRedirect:
     def __init__(self, filename):
         self.old_stdout = sys.stdout
         sys.stdout = open(filename, 'w')
