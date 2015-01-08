@@ -15,10 +15,12 @@
 #include <Windows.h>
 #include <Shlwapi.h>
 
+#pragma comment(lib, "shlwapi")
+
 /** 递归遍历文件夹并将所有文件依次输出
 @param wszPath 要遍历的文件夹
 */
-void RecursiveTraversalPath(const wchar_t* wszPath);
+void RecursiveTraversalPath(const wchar_t* wszPath)
 {
 	wchar_t wszFind[MAX_PATH] = {0};
 	wchar_t wszFindBack[MAX_PATH] = {0};

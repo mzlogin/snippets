@@ -1,5 +1,5 @@
 /**
-@file : TraversalPath.h
+@file : FileRelation.h
 @author : ChumpMa#gmail.com
 @website: http://www.mazhuang.org
 @brief : 检测/设置/取消文件关联
@@ -9,6 +9,12 @@
 
 #ifndef FILE_RELATION_H
 #define FILE_RELATION_H
+
+#include <Windows.h>
+#include <ShlObj.h>
+#include <Shlwapi.h>
+
+#pragma comment(lib, "shlwapi")
 
 /**
  检测指定文件扩展名的程序关联情况
