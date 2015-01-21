@@ -6,10 +6,10 @@ typedef unsigned char byte;
 template<typename T>
 void show_bytes(T* p, size_t len)
 {
-    byte* pbyte = (byte*)p;
+    byte* pb = (byte*)p;
     for (int i = 0; i < len; i++)
     {
-        printf("%.2x ", pbyte[i]);
+        printf("%.2x ", pb[i]);
     }
     printf("\n");
 }
@@ -17,14 +17,14 @@ void show_bytes(T* p, size_t len)
 template<typename T>
 void show_binary(T* p, size_t len)
 {
-    byte* pbyte = (byte*)p;
+    byte* pb = (byte*)p;
     for (int i = 0; i < len; i++)
     {
         for (int j = 8 - 1; j >= 0; j--)
         {
             byte b = (byte)1;
             b = b << j;
-            b = b & pbyte[i];
+            b = b & pb[i];
             printf("%d", (bool)b);
         }
         printf(" ");
