@@ -28,3 +28,11 @@
 
 # Vim
 *.swp
+
+# Emacs
+\#*\#
+
+# gtags
+GPATH
+GRTAGS
+GTAGS
