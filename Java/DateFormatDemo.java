@@ -9,7 +9,7 @@ public class DateFormatDemo {
 
     public static void BySimpleDateFormat() {
         // see http://developer.android.com/reference/java/text/SimpleDateFormat.html
-        String format = new String("EEEE, MMM dd, yyyy");
+        String format = new String("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
         System.out.println(sdf.format(new Date()));
     }
