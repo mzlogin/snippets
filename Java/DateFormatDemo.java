@@ -24,34 +24,76 @@ public class DateFormatDemo {
 		Calendar base = Calendar.getInstance();
         // 可以设定为某天
         base.set(2015, 3 - 1, 1);  // 月份从0开始，设3月要写2月
-		int min = base.getActualMinimum(Calendar.DAY_OF_WEEK); // 获取本周开始基准
-		int current = base.get(Calendar.DAY_OF_WEEK); // 获取当天在本周内天数
 
         // 本周
-		Calendar thisWeekStart = (Calendar)base.clone();
-		thisWeekStart.add(Calendar.DAY_OF_WEEK, (current == min) ? -6 : (min - current + 1));	// 周开始日期
-		
-		Calendar thisWeekEnd = (Calendar)base.clone();
-		thisWeekEnd.add(Calendar.DAY_OF_WEEK, (current == min) ? 0 : (7 - current + 1));		// 周结束日期
+        Calendar monday = DateCalcUtil.calc(base, DateCalcUtil.CalcType.GET_THIS_MONDAY);
+        Calendar sunday = DateCalcUtil.calc(base, DateCalcUtil.CalcType.GET_THIS_SUNDAY);
 
         // 下周
-		Calendar nextWeekStart = (Calendar)base.clone();
-		nextWeekStart.add(Calendar.DAY_OF_WEEK, ((current == min) ? -6 : (min - current + 1)) + 7);	// 周开始日期
-		
-		Calendar nextWeekEnd = (Calendar)base.clone();
-		nextWeekEnd.add(Calendar.DAY_OF_WEEK, ((current == min) ? 0 : (7 - current + 1)) + 7);		// 周结束日期
+        Calendar nextMonday = DateCalcUtil.calc(base, DateCalcUtil.CalcType.GET_NEXT_MONDAY);
+        Calendar nextSunday = DateCalcUtil.calc(base, DateCalcUtil.CalcType.GET_NEXT_SUNDAY);
 
         // 上周
-		Calendar preWeekStart = (Calendar)base.clone();
-		preWeekStart.add(Calendar.DAY_OF_WEEK, ((current == min) ? -6 : (min - current + 1)) - 7);	// 周开始日期
-		
-		Calendar preWeekEnd = (Calendar)base.clone();
-		preWeekEnd.add(Calendar.DAY_OF_WEEK, ((current == min) ? 0 : (7 - current + 1)) - 7);		// 周结束日期
+        Calendar previousMonday = DateCalcUtil.calc(base, DateCalcUtil.CalcType.GET_PREVIOUS_MONDAY);
+        Calendar previousSunday = DateCalcUtil.calc(base, DateCalcUtil.CalcType.GET_PREVIOUS_SUNDAY);
     }
-    
+
     public static String getMonthAndDay(Calendar cal) {
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd", Locale.US);
         String monthAndDay = sdf.format(cal.getTime());
         return monthAndDay;
+    }
+
+    static class DateCalcUtil {
+        public static enum CalcType { 
+            GET_PREVIOUS_MONDAY,
+            GET_PREVIOUS_SUNDAY,
+            GET_THIS_MONDAY,
+            GET_THIS_SUNDAY,
+            GET_NEXT_MONDAY,
+            GET_NEXT_SUNDAY
+        }
+
+        public static Calendar calc(Calendar base, CalcType calcType) {
+
+            int min = base.getActualMinimum(Calendar.DAY_OF_WEEK); // 获取这一周开始基准
+            int current = base.get(Calendar.DAY_OF_WEEK); // 获取当天在这一周内天数
+            Calendar calendar = (Calendar)base.clone();
+
+            int nCount = 0;
+
+            switch (calcType) {
+                case GET_PREVIOUS_MONDAY:
+                    nCount = ((current == min) ? -6 : (min - current + 1)) - 7;
+                    break;
+
+                case GET_PREVIOUS_SUNDAY:
+                    nCount = ((current == min) ? 0 : (7 - current + 1)) - 7;
+                    break;
+
+                case GET_THIS_MONDAY:
+                    nCount = (current == min) ? -6 : (min - current + 1);
+                    break;
+
+                case GET_THIS_SUNDAY:
+                    nCount = (current == min) ? 0 : (7 - current + 1);
+                    break;
+
+                case GET_NEXT_MONDAY:
+                    nCount = ((current == min) ? -6 : (min - current + 1)) + 7;
+                    break;
+
+                case GET_NEXT_SUNDAY:
+                    nCount = ((current == min) ? 0 : (7 - current + 1)) + 7;
+                    break;
+
+                default:
+                    break;
+            }
+
+            calendar.add(Calendar.DAY_OF_WEEK, nCount);
+            
+            return calendar;
+        }
     }
 }
