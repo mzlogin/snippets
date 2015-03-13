@@ -30,7 +30,7 @@ public class DateFormatDemo {
 
     public static void dateCalc() {
         // 今天
-		Calendar base = Calendar.getInstance();
+        Calendar base = Calendar.getInstance();
         // 可以设定为某天
         base.set(2015, 3 - 1, 1);  // 月份从0开始，设3月要写2月
 
