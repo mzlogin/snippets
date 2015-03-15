@@ -25,10 +25,10 @@ public class MeetingManage {
 		int current = calendar.get(Calendar.DAY_OF_WEEK); // 获取当天在本周内天数
 		
 		Calendar start = Calendar.getInstance();
-		start.add(Calendar.DAY_OF_WEEK, min - current + 1);	// 周开始日期
+		start.add(Calendar.DAY_OF_WEEK, (current == min) ? -6 : (min - current + 1));	// 周开始日期
 		
 		Calendar end = Calendar.getInstance();
-		end.add(Calendar.DAY_OF_WEEK, 7 - current + 1);		// 周结束日期
+		end.add(Calendar.DAY_OF_WEEK, (current == min) ? 0 : (7 - current + 1));		// 周结束日期
 		
 		// System.out.printf("start=%tF, end=%tF\n", start, end);
 		
