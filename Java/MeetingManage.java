@@ -37,32 +37,64 @@ public class MeetingManage {
 		
 		// 3. 格式化原始数据
 		// 三维数组，三个维度分别为会议室、星期几、上下午
-		MeetingRecord[][][] formatData = new MeetingRecord[meetingRooms.length][7][2];
-		for (int i = 0; i < meetingRooms.length; i++) {
-			Calendar startTmp = Calendar.getInstance();
-			startTmp.set(Calendar.DATE, start.get(Calendar.DATE));
-			for (int n = 0; n < 7; n++) {
-				Calendar day = Calendar.getInstance();
-				day.set(Calendar.DATE, start.get(Calendar.DATE) + n);
-				for (MeetingRecord record : df.mRecords) {
-					if (record.HYDD.equals(meetingRooms[i]) && isSameDay(record.KSSJ, day)) {
-						Calendar cal = Calendar.getInstance();
-						cal.setTime(record.KSSJ);
-						int hourOfDay = cal.get(Calendar.HOUR_OF_DAY);
-						if (hourOfDay < 12) {
-							if (formatData[i][n][0] == null) {
-								formatData[i][n][0] = new MeetingRecord(record);
-							}
-						} else {
-							if (formatData[i][n][1] == null) {
-								formatData[i][n][1] = new MeetingRecord(record);
-							}
-						}
-					}
-				}
-			}
-		}
-		
+//        MeetingRecord[][][] formatData = new MeetingRecord[meetingRooms.length][7][2];
+//        for (int i = 0; i < meetingRooms.length; i++) {
+//            Calendar startTmp = Calendar.getInstance();
+//            startTmp.set(Calendar.DATE, start.get(Calendar.DATE));
+//            for (int n = 0; n < 7; n++) {
+//                Calendar day = Calendar.getInstance();
+//                day.set(Calendar.DATE, start.get(Calendar.DATE) + n);
+//                for (MeetingRecord record : df.mRecords) {
+//                    if (record.HYDD.equals(meetingRooms[i]) && isSameDay(record.KSSJ, day)) {
+//                        Calendar cal = Calendar.getInstance();
+//                        cal.setTime(record.KSSJ);
+//                        int hourOfDay = cal.get(Calendar.HOUR_OF_DAY);
+//                        if (hourOfDay < 12) {
+//                            if (formatData[i][n][0] == null) {
+//                                formatData[i][n][0] = new MeetingRecord(record);
+//                            }
+//                        } else {
+//                            if (formatData[i][n][1] == null) {
+//                                formatData[i][n][1] = new MeetingRecord(record);
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+
+        MeetingRecord[][][] formatData = new MeetingRecord[meetingRooms.length][7][2];
+
+        for (MeetingRecord record : df.mRecords) {
+            boolean bMeetingRoomFind = false;
+            // 获取会议室下标
+            int meetingRoomPos = 0;
+            for (; meetingRoomPos < meetingRooms.length; meetingRoomPos++) {
+                if (record.HYDD.equals(meetingRooms[meetingRoomPos])) {
+                    bMeetingRoomFind = true;
+                    break;
+                }
+            }
+            if (!bMeetingRoomFind) {
+                continue;
+            }
+
+            // 获取星期几下标
+            Calendar calKSSJ = Calendar.getInstance();
+            calKSSJ.setTime(record.KSSJ);
+            int weekPos = calKSSJ.get(Calendar.DATE) - start.get(Calendar.DATE);
+            if (weekPos > 6 || weekPos < 0) {
+                continue;
+            }
+
+            // 获取上下午下标
+            int ampmPos= (calKSSJ.get(Calendar.HOUR_OF_DAY) < 12) ? 0 : 1;
+
+            if (formatData[meetingRoomPos][weekPos][ampmPos] == null) {
+                formatData[meetingRoomPos][weekPos][ampmPos] = new MeetingRecord(record);
+            }
+        }
+
 		// 4. 绘制网页，画每个格子时从原始数据中查询当前是否有会议
 		
 		String strHTML = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/><style>table { border-collapse: collapse; } th { padding: 0.375em 0.8125em; border: 1px solid #ddd; font-weight: bold; } td { padding: 0.375em 0.8125em; border: 1px solid #ddd; } tr:nth-child(2n) { background-color: #f8f8f8; } .spec { background-color: #ff0000; }</style></head><body><table><tr><td></td><td>星期一</td><td>星期二</td><td>星期三</td><td>星期四</td><td>星期五</td><td>星期六</td><td>星期天</td>";
