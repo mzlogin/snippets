@@ -21,13 +21,14 @@ public class MeetingManage {
 		
 		// 2. 获取当天所在周的日期跨度，周一到周天，如果要周天到周六，需要把两个+1去掉
 		Calendar calendar = Calendar.getInstance();
+        calendar.set(2015, 3-1, 26);
 		int min = calendar.getActualMinimum(Calendar.DAY_OF_WEEK); // 获取本周开始基准
 		int current = calendar.get(Calendar.DAY_OF_WEEK); // 获取当天在本周内天数
 		
-		Calendar start = Calendar.getInstance();
+		Calendar start = (Calendar)calendar.clone();
 		start.add(Calendar.DAY_OF_WEEK, (current == min) ? -6 : (min - current + 1));	// 周开始日期
 		
-		Calendar end = Calendar.getInstance();
+		Calendar end = (Calendar)calendar.clone();
 		end.add(Calendar.DAY_OF_WEEK, (current == min) ? 0 : (7 - current + 1));		// 周结束日期
 		
 		// System.out.printf("start=%tF, end=%tF\n", start, end);
@@ -82,7 +83,9 @@ public class MeetingManage {
             // 获取星期几下标
             Calendar calKSSJ = Calendar.getInstance();
             calKSSJ.setTime(record.KSSJ);
-            int weekPos = calKSSJ.get(Calendar.DATE) - start.get(Calendar.DATE);
+            long thisDay = getDays(calKSSJ);
+            long startDay = getDays(start);
+            int weekPos = (int)(thisDay - startDay);
             if (weekPos > 6 || weekPos < 0) {
                 continue;
             }
@@ -147,22 +150,22 @@ public class MeetingManage {
 
 		records.add(new MeetingRecord(new String(""), 
 				new String(""), 
-				getDate("2015-03-11 19:00:00"),
-				getDate("2015-03-11 20:00:00"),
+				getDate("2015-03-24 15:00:00"),
+				getDate("2015-03-24 17:00:00"),
 				new String("huiyishi"),
 				new String("")));
 		
 		records.add(new MeetingRecord(new String(""), 
 				new String(""), 
-				getDate("2015-03-12 15:00:00"),
-				getDate("2015-03-12 16:00:00"),
+				getDate("2015-03-24 14:30:00"),
+				getDate("2015-03-24 17:00:00"),
 				new String("sffffff"),
 				new String("")));
 		
 		records.add(new MeetingRecord(new String(""), 
 				new String(""), 
-				getDate("2015-03-13 10:00:00"),
-				getDate("2015-03-13 11:00:00"),
+				getDate("2015-03-25 15:00:00"),
+				getDate("2015-03-25 17:30:00"),
 				new String("会议室11"),
 				new String("")));
 		
@@ -176,12 +179,19 @@ public class MeetingManage {
 		Calendar calDate = Calendar.getInstance();
 		calDate.setTime(date);
 		
-		if (calDate.get(Calendar.DATE) == calendar.get(Calendar.DATE)) {
-			isSameDay = true;
-		}
+        long dateDay = getDays(calDate);
+        long calDay = getDays(calendar);
+        if (dateDay == calDay) {
+            isSameDay = true;
+        }
 		
 		return isSameDay;
 	}
+    
+    public static long getDays(Calendar cal) {
+        long days = (cal.getTimeInMillis() + cal.get(Calendar.ZONE_OFFSET)) / (24*3600*1000);
+        return days;
+    }
 	
 	public static Date getDate(String s) {
 		Date date = null;
