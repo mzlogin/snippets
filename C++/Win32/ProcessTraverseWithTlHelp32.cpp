@@ -19,6 +19,7 @@ void TraverseProcessWithTlHelp32()
             _tprintf(_T("PID is %d, PNAME is %s\n"), pe.th32ProcessID, pe.szExeFile);
             bRet = Process32Next(hSnapshot, &pe);
         }
+        CloseHandle(hSnapshot);
     }
 }
 

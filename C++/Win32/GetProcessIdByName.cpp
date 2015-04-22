@@ -22,6 +22,7 @@ BOOL GetProcessIdByName(_TCHAR* pszName, DWORD& dwPid)
 
 			bRet = Process32Next(hSnapshot, &pe);
 		}
+        CloseHandle(hSnapshot);
 	}
 	return bGet;
 }
