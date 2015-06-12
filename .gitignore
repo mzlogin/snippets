@@ -37,3 +37,6 @@
 GPATH
 GRTAGS
 GTAGS
+
+# mac
+.DS_Store
