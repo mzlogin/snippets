@@ -81,20 +81,54 @@ public class MeetingManage {
             }
 
             // 获取星期几下标
-            Calendar calKSSJ = Calendar.getInstance();
-            calKSSJ.setTime(record.KSSJ);
-            long thisDay = getDays(calKSSJ);
-            long startDay = getDays(start);
-            int weekPos = (int)(thisDay - startDay);
-            if (weekPos > 6 || weekPos < 0) {
-                continue;
-            }
+//            Calendar calKSSJ = Calendar.getInstance();
+//            calKSSJ.setTime(record.KSSJ);
+//            long thisDay = getDays(calKSSJ);
+//            long startDay = getDays(start);
+//            int weekPos = (int)(thisDay - startDay);
+//            if (weekPos > 6 || weekPos < 0) {
+//                continue;
+//            }
 
             // 获取上下午下标
-            int ampmPos= (calKSSJ.get(Calendar.HOUR_OF_DAY) < 12) ? 0 : 1;
+//            int ampmPos= (calKSSJ.get(Calendar.HOUR_OF_DAY) < 12) ? 0 : 1;
 
-            if (formatData[meetingRoomPos][weekPos][ampmPos] == null) {
-                formatData[meetingRoomPos][weekPos][ampmPos] = new MeetingRecord(record);
+//            if (formatData[meetingRoomPos][weekPos][ampmPos] == null) {
+//                formatData[meetingRoomPos][weekPos][ampmPos] = new MeetingRecord(record);
+//            }
+//
+
+            Calendar calKSSJ = Calendar.getInstance();
+            calKSSJ.setTime(record.KSSJ);
+            Calendar calJSSJ = Calendar.getInstance();
+            calJSSJ.setTime(record.JSSJ);
+            
+            // 遍历本周每一个半天时间段
+            for (int i = 0; i < 7; i++) {
+                Calendar amStart = (Calendar)start.clone();
+                amStart.add(Calendar.DAY_OF_WEEK, i);
+                amStart.set(Calendar.HOUR_OF_DAY, 8);
+                amStart.set(Calendar.MINUTE, 0);
+                amStart.set(Calendar.SECOND, 0);
+                amStart.set(Calendar.MILLISECOND, 0);
+
+                Calendar amEnd = (Calendar)amStart.clone();
+                amEnd.set(Calendar.HOUR_OF_DAY, 12);
+
+                if (calKSSJ.compareTo(amEnd) < 0 && calJSSJ.compareTo(amStart) >= 0) {
+                    if (formatData[meetingRoomPos][i][0] == null) {
+                        formatData[meetingRoomPos][i][0] = new MeetingRecord(record);
+                    }
+                }
+
+                Calendar pmEnd = (Calendar)amStart.clone();
+                pmEnd.set(Calendar.HOUR_OF_DAY, 21);
+
+                if (calKSSJ.compareTo(pmEnd) < 0 && calJSSJ.compareTo(amEnd) >= 0) {
+                    if (formatData[meetingRoomPos][i][1] == null) {
+                        formatData[meetingRoomPos][i][1] = new MeetingRecord(record);
+                    }
+                }
             }
         }
 
@@ -164,8 +198,8 @@ public class MeetingManage {
 		
 		records.add(new MeetingRecord(new String(""), 
 				new String(""), 
-				getDate("2015-03-25 15:00:00"),
-				getDate("2015-03-25 17:30:00"),
+				getDate("2015-03-25 12:59:00"),
+				getDate("2015-04-30 21:00:00"),
 				new String("会议室11"),
 				new String("")));
 		

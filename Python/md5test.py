@@ -6,4 +6,6 @@ def str_md5(str):
     return m.hexdigest()
 
 if __name__ == '__main__':
-    print str_md5("com.sohu.inputmethod.sogou")
+    while True:
+        str = raw_input('input string to calc md5: ')
+        print str_md5(str)
