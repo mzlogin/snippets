@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style type="text/css">
+      #myCanvas {
+        border: 1px solid blue;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="500" height="300"></canvas>
+    <script type="text/javascript">
+      var c = document.getElementById("myCanvas");
+      var cxt = c.getContext("2d");
+      cxt.fillStyle = "#FF0000";
+
+      // rect
+      cxt.fillRect(0, 0, 150, 75);
+
+      // line
+      cxt.moveTo(200, 10);
+      cxt.lineTo(350, 50);
+      cxt.lineTo(200, 50);
+      cxt.stroke();
+
+      // circle
+      cxt.beginPath();
+      cxt.arc(300, 18, 15, 0, Math.PI * 2, true);
+      cxt.closePath();
+      cxt.fill();
+
+      // gradual change
+      var grd = cxt.createLinearGradient(0, 225, 400, 50);
+      grd.addColorStop(0, "#FF0000");
+      grd.addColorStop(1, "#00FF00");
+      cxt.fillStyle = grd;
+      cxt.fillRect(0, 225, 400, 50);
+
+      // image
+      // see http://johncookie.iteye.com/blog/1289982
+      preImage("flower.gif", function() {
+        cxt.drawImage(this, 0, 100);
+      });
+
+      function preImage(url, callback) {
+        var img = new Image();
+        img.src = url;
+
+        if (img.complete) {
+          callback.call(img);
+          return;
+        }
+
+        img.onload = function() {
+          callback.call(img);
+        };
+      }
+    </script>
+  </body>
+</html>
