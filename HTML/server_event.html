@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>get server update</h1>
+    <div id="result"></div>
+    <script>
+      if (typeof(EventSource) !== "undefined") {
+        var source = new EventSource("http://www.w3school.com.cn/example/html5/demo_sse.php");
+        source.onmessage = function(event) {
+          document.getElementById("result").innerHTML += event.data + "<br />";
+        }
+      }
+      else {
+        document.getElementById("result").innerHTML = "Sorry, your browser does not support server-sent events...";
+      }
+    </script>
+  </body>
+</html>
