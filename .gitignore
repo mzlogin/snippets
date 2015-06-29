@@ -28,6 +28,7 @@
 
 # Vim
 *.swp
+*.swo
 
 # Emacs
 \#*\#
