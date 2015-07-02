@@ -43,5 +43,6 @@ int main(int argc, char *argv[])
     show_binary(&d1, sizeof(double));
     show_bytes(p, strlen(p));
     show_binary(p, strlen(p));
+    show_binary(p, strlen(p));
     return 0;
 }
