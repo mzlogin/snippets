@@ -9,7 +9,7 @@ urlpatterns = patterns('',
             context_object_name='lastest_poll_list',
             template_name='polls/index.html'),
         name='index'),
-    url(r'^(?p<pk>\d+/$',
+    url(r'^(?P<pk>\d+)/$',
         DetailView.as_view(
             model=Poll,
             template_name='polls/detail.html'
