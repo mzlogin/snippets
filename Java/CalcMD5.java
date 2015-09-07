@@ -28,17 +28,29 @@ public class CalcMD5 {
     }
 
     public static Long stringMD5FirstHalfToLong(String input) {
-        String md5 = stringMD5(input);
-        Long result = 0L;
-        if (md5 != null && md5.length() > 16) {
-            String firstHalf = md5.substring(0, 16);
-            result = Long.valueOf(firstHalf, 16);
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            byte[] inputByteArray = input.getBytes();
+            messageDigest.update(inputByteArray);
+            byte[] resultByteArray = messageDigest.digest();
+            Long result = 0L;
+            if (resultByteArray != null && (resultByteArray.length == 16)) {
+                int i = 0;
+                while (i < 8) {
+                    int j = 0xFF & resultByteArray[i];
+                    long l = result << 8 | j;
+                    i++;
+                    result = l;
+                }
+            }
+            return result;
+        } catch (NoSuchAlgorithmException e) {
+            return null;
         }
-        return result;
     }
 
     public static void main(String[] args) {
-        String input = "hello";
+        String input = "android";
         System.out.println(CalcMD5.stringMD5(input));
         System.out.println(CalcMD5.stringMD5FirstHalfToLong(input));
     }
