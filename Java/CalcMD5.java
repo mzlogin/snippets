@@ -27,7 +27,19 @@ public class CalcMD5 {
         return new String(resultCharArray);
     }
 
+    public static Long stringMD5FirstHalfToLong(String input) {
+        String md5 = stringMD5(input);
+        Long result = 0L;
+        if (md5 != null && md5.length() > 16) {
+            String firstHalf = md5.substring(0, 16);
+            result = Long.valueOf(firstHalf, 16);
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
-        System.out.println(CalcMD5.stringMD5("hello"));
+        String input = "hello";
+        System.out.println(CalcMD5.stringMD5(input));
+        System.out.println(CalcMD5.stringMD5FirstHalfToLong(input));
     }
 }
