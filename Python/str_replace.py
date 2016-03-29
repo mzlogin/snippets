@@ -2,13 +2,13 @@ import re
 
 def normal():
     a = 'Hello World!'
-    print a.replace('World', 'Python')
+    print(a.replace('World', 'Python'))
 
-def viaRegex():
+def via_regex():
     a = 'Hello World!'
     pattern = re.compile('World')
-    print pattern.sub('Python', a)
+    print(pattern.sub('Python', a))
 
 if __name__ == '__main__':
     normal()
-    viaRegex()
+    via_regex()
