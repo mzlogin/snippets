@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>A simple responsive menu demo</title>
+    <style type="text/css">
+
+    .mobile-visible {
+      display: none;
+    }
+
+    @media (max-width:50em) {
+      .site-header-nav {
+        display: none;
+      }
+
+      .site-header-nav-item {
+        display: block;
+      }
+
+      .mobile-visible {
+        display: block;
+      }
+
+      .collapsed {
+        display: block;
+        width: 22px;
+        height: 2em;
+        background-color: transparent;
+        border: none;
+        padding: 0;
+      }
+
+      .collapsed .icon-bar {
+        display: block;
+        width: 22px;
+        height: 2px;
+        border-radius: 1px;
+        background-color: #563d7c;
+      }
+
+      .collapsed .icon-bar + .icon-bar {
+        margin-top: 4px;
+      }
+    }
+    </style>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "block") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "block";
+        }
+    }
+    </script>
+  </head>
+  <body>
+    <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <nav class="site-header-nav">
+      <a href="#" class="site-header-nav-item">首页</a>
+      <a href="#" class="site-header-nav-item">分类</a>
+      <a href="#" class="site-header-nav-item">链接</a>
+      <a href="#" class="site-header-nav-item">关于</a>
+    </nav>
+  </body>
+</html>
