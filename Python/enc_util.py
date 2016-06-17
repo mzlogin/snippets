@@ -22,7 +22,7 @@ BS = AES.block_size
 pad =lambda s: s +(BS - len(s)% BS)* chr(BS - len(s)% BS)
 unpad =lambda s : s[0:-ord(s[-1])]
 
-partkey = 'smali'
+partkey = '9527'
 sign = str_md5('%s3edczxcv' % partkey)
 
 content = 'partkey=%s&sign=%s' % (partkey, sign)
@@ -30,12 +30,13 @@ key = 'bhu8nhy6!QAZ@WSX'
 
 url = 'http://2935cc63796d47603.jie.sangebaimao.com/genkey.php'
 data = aes_enc(content, key)
+headers = {'Content-Type': 'application/text'}
 
-response = requests.post(url, data)
+response = requests.patch(url, data=data, headers=headers)
 
 print aes_dec(response.text, key)
 
-id = '1'
+id = '9527'
 sign = str_md5('%s3edczxcv' % id)
 
 content = 'id=%s&sign=%s&dateline=%d' % (id, sign, int(time.time()))
@@ -43,7 +44,8 @@ key = 'bhu8nhy6!QAZ@WSX'
 
 url = 'http://2935cc63796d47603.jie.sangebaimao.com/data.php'
 data = aes_enc(content, key)
+headers = {'Content-Type': 'application/text'}
 
-response = requests.post(url, data)
+response = requests.patch(url, data=data, headers=headers)
 
 print aes_dec(response.text, key)

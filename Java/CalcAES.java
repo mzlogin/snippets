@@ -83,6 +83,8 @@ public class CalcAES {
 //        data: second data
 //        System.out.println(CalcAES.decAES("d9e128643d46562942c62de2e81dd1f34b50dcb0b9853f0ad67000bfeb34e347", "bhu8nhy6!QAZ@WSX"));
 //        data: third data
-        System.out.println(CalcAES.encAES("partkey=0&sign=6db187fadfd010232350ae18521211a0", "bhu8nhy6!QAZ@WSX"));
+//        System.out.println(CalcAES.decAES("1827d23bc2bf3fe8e919996c3d11ba89", "bhu8nhy6!QAZ@WSX"));
+//        error: no data
+//        System.out.println(CalcAES.encAES("partkey=0&sign=6db187fadfd010232350ae18521211a0", "bhu8nhy6!QAZ@WSX"));
     }
 }
