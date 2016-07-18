@@ -9,7 +9,7 @@
 ```java
 BitmapFactory.Options opt = new BitmapFactory.Options();
 opt.inJustDecodeBounds = true;
-BitmapFactory.decodeResource(context.getResources(), R.drawable.demo_img);
+BitmapFactory.decodeResource(context.getResources(), R.drawable.demo_img, opt);
 
 int width = opt.outWidth;
 int height = opt.outHeight;
