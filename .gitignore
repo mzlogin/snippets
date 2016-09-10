@@ -22,7 +22,7 @@
 
 # Java
 *.class
-Java/.idea/
+*/.idea/
 *.iml
 Java/out/
 
