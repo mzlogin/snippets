@@ -1,6 +1,6 @@
 import java.io.File;
 
-public class TravesePath {
+public class TraversalPath {
     public static void main(String[] args) {
 	File dir = new File("d:/HelloWorld");
 	if (dir.isDirectory()) {
