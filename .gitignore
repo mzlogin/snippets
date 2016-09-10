@@ -22,6 +22,9 @@
 
 # Java
 *.class
+Java/.idea/
+*.iml
+Java/out/
 
 # Python
 *.pyc

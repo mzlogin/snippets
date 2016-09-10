@@ -1,3 +1,5 @@
+package net.MultiClientWithProtocol;
+
 public interface YeekuProtocol {
     int PROTOCOL_LEN = 2;
     String MSG_ROUND = "__";

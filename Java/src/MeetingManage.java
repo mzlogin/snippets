@@ -16,28 +16,28 @@ public class MeetingManage {
 	public static void main(String[] args) {
 		MeetingManage df = new MeetingManage();
 		
-		// 1. ²éÑ¯µ½Ô­Ê¼Êı¾İ
+		// 1. æŸ¥è¯¢åˆ°åŸå§‹æ•°æ®
 		df.mRecords = df.getPrimitiveData();
 		
-		// 2. »ñÈ¡µ±ÌìËùÔÚÖÜµÄÈÕÆÚ¿ç¶È£¬ÖÜÒ»µ½ÖÜÌì£¬Èç¹ûÒªÖÜÌìµ½ÖÜÁù£¬ĞèÒª°ÑÁ½¸ö+1È¥µô
+		// 2. è·å–å½“å¤©æ‰€åœ¨å‘¨çš„æ—¥æœŸè·¨åº¦ï¼Œå‘¨ä¸€åˆ°å‘¨å¤©ï¼Œå¦‚æœè¦å‘¨å¤©åˆ°å‘¨å…­ï¼Œéœ€è¦æŠŠä¸¤ä¸ª+1å»æ‰
 		Calendar calendar = Calendar.getInstance();
         calendar.set(2015, 3-1, 26);
-		int min = calendar.getActualMinimum(Calendar.DAY_OF_WEEK); // »ñÈ¡±¾ÖÜ¿ªÊ¼»ù×¼
-		int current = calendar.get(Calendar.DAY_OF_WEEK); // »ñÈ¡µ±ÌìÔÚ±¾ÖÜÄÚÌìÊı
+		int min = calendar.getActualMinimum(Calendar.DAY_OF_WEEK); // è·å–æœ¬å‘¨å¼€å§‹åŸºå‡†
+		int current = calendar.get(Calendar.DAY_OF_WEEK); // è·å–å½“å¤©åœ¨æœ¬å‘¨å†…å¤©æ•°
 		
 		Calendar start = (Calendar)calendar.clone();
-		start.add(Calendar.DAY_OF_WEEK, (current == min) ? -6 : (min - current + 1));	// ÖÜ¿ªÊ¼ÈÕÆÚ
+		start.add(Calendar.DAY_OF_WEEK, (current == min) ? -6 : (min - current + 1));	// å‘¨å¼€å§‹æ—¥æœŸ
 		
 		Calendar end = (Calendar)calendar.clone();
-		end.add(Calendar.DAY_OF_WEEK, (current == min) ? 0 : (7 - current + 1));		// ÖÜ½áÊøÈÕÆÚ
+		end.add(Calendar.DAY_OF_WEEK, (current == min) ? 0 : (7 - current + 1));		// å‘¨ç»“æŸæ—¥æœŸ
 		
 		// System.out.printf("start=%tF, end=%tF\n", start, end);
 		
-		// »áÒéÊÒÁĞ±í£¬µ±Ç°Ğ´ËÀ£¬ÈçÓĞÓĞ±ØÒª£¬¿ÉÒÔ´ÓÊı¾İ¿âÖĞÈ¡³öĞÎ³ÉÊı×é
-		String[] meetingRooms = {"huiyishi", "sffffff", "»áÒéÊÒ11"};
+		// ä¼šè®®å®¤åˆ—è¡¨ï¼Œå½“å‰å†™æ­»ï¼Œå¦‚æœ‰æœ‰å¿…è¦ï¼Œå¯ä»¥ä»æ•°æ®åº“ä¸­å–å‡ºå½¢æˆæ•°ç»„
+		String[] meetingRooms = {"huiyishi", "sffffff", "ä¼šè®®å®¤11"};
 		
-		// 3. ¸ñÊ½»¯Ô­Ê¼Êı¾İ
-		// ÈıÎ¬Êı×é£¬Èı¸öÎ¬¶È·Ö±ğÎª»áÒéÊÒ¡¢ĞÇÆÚ¼¸¡¢ÉÏÏÂÎç
+		// 3. æ ¼å¼åŒ–åŸå§‹æ•°æ®
+		// ä¸‰ç»´æ•°ç»„ï¼Œä¸‰ä¸ªç»´åº¦åˆ†åˆ«ä¸ºä¼šè®®å®¤ã€æ˜ŸæœŸå‡ ã€ä¸Šä¸‹åˆ
 //        MeetingRecord[][][] formatData = new MeetingRecord[meetingRooms.length][7][2];
 //        for (int i = 0; i < meetingRooms.length; i++) {
 //            Calendar startTmp = Calendar.getInstance();
@@ -68,7 +68,7 @@ public class MeetingManage {
 
         for (MeetingRecord record : df.mRecords) {
             boolean bMeetingRoomFind = false;
-            // »ñÈ¡»áÒéÊÒÏÂ±ê
+            // è·å–ä¼šè®®å®¤ä¸‹æ ‡
             int meetingRoomPos = 0;
             for (; meetingRoomPos < meetingRooms.length; meetingRoomPos++) {
                 if (record.HYDD.equals(meetingRooms[meetingRoomPos])) {
@@ -80,7 +80,7 @@ public class MeetingManage {
                 continue;
             }
 
-            // »ñÈ¡ĞÇÆÚ¼¸ÏÂ±ê
+            // è·å–æ˜ŸæœŸå‡ ä¸‹æ ‡
 //            Calendar calKSSJ = Calendar.getInstance();
 //            calKSSJ.setTime(record.KSSJ);
 //            long thisDay = getDays(calKSSJ);
@@ -90,7 +90,7 @@ public class MeetingManage {
 //                continue;
 //            }
 
-            // »ñÈ¡ÉÏÏÂÎçÏÂ±ê
+            // è·å–ä¸Šä¸‹åˆä¸‹æ ‡
 //            int ampmPos= (calKSSJ.get(Calendar.HOUR_OF_DAY) < 12) ? 0 : 1;
 
 //            if (formatData[meetingRoomPos][weekPos][ampmPos] == null) {
@@ -103,7 +103,7 @@ public class MeetingManage {
             Calendar calJSSJ = Calendar.getInstance();
             calJSSJ.setTime(record.JSSJ);
             
-            // ±éÀú±¾ÖÜÃ¿Ò»¸ö°ëÌìÊ±¼ä¶Î
+            // éå†æœ¬å‘¨æ¯ä¸€ä¸ªåŠå¤©æ—¶é—´æ®µ
             for (int i = 0; i < 7; i++) {
                 Calendar amStart = (Calendar)start.clone();
                 amStart.add(Calendar.DAY_OF_WEEK, i);
@@ -132,31 +132,31 @@ public class MeetingManage {
             }
         }
 
-		// 4. »æÖÆÍøÒ³£¬»­Ã¿¸ö¸ñ×ÓÊ±´ÓÔ­Ê¼Êı¾İÖĞ²éÑ¯µ±Ç°ÊÇ·ñÓĞ»áÒé
+		// 4. ç»˜åˆ¶ç½‘é¡µï¼Œç”»æ¯ä¸ªæ ¼å­æ—¶ä»åŸå§‹æ•°æ®ä¸­æŸ¥è¯¢å½“å‰æ˜¯å¦æœ‰ä¼šè®®
 		
-		String strHTML = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/><style>table { border-collapse: collapse; } th { padding: 0.375em 0.8125em; border: 1px solid #ddd; font-weight: bold; } td { padding: 0.375em 0.8125em; border: 1px solid #ddd; } tr:nth-child(2n) { background-color: #f8f8f8; } .spec { background-color: #ff0000; }</style></head><body><table><tr><td></td><td>ĞÇÆÚÒ»</td><td>ĞÇÆÚ¶ş</td><td>ĞÇÆÚÈı</td><td>ĞÇÆÚËÄ</td><td>ĞÇÆÚÎå</td><td>ĞÇÆÚÁù</td><td>ĞÇÆÚÌì</td>";
+		String strHTML = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/><style>table { border-collapse: collapse; } th { padding: 0.375em 0.8125em; border: 1px solid #ddd; font-weight: bold; } td { padding: 0.375em 0.8125em; border: 1px solid #ddd; } tr:nth-child(2n) { background-color: #f8f8f8; } .spec { background-color: #ff0000; }</style></head><body><table><tr><td></td><td>æ˜ŸæœŸä¸€</td><td>æ˜ŸæœŸäºŒ</td><td>æ˜ŸæœŸä¸‰</td><td>æ˜ŸæœŸå››</td><td>æ˜ŸæœŸäº”</td><td>æ˜ŸæœŸå…­</td><td>æ˜ŸæœŸå¤©</td>";
 		
 		for (int i = 0; i < meetingRooms.length; i++) {
-			// ÉÏÎç
-			strHTML += "<tr><td>ÉÏÎç</td>";
+			// ä¸Šåˆ
+			strHTML += "<tr><td>ä¸Šåˆ</td>";
 			for (int n = 0; n < 7; n++) {
 				if (formatData[i][n][0] == null) {
-					strHTML += "<td>" + "¿ÕÏĞ" + "</td>";
+					strHTML += "<td>" + "ç©ºé—²" + "</td>";
 				} else {
-					// TODO Ë³±ã¸ù¾İÔªËØÀïµÄÄÚÈİ´¦ÀíÁ´½ÓºÍÑùÊ½
-					strHTML += "<td class=\"spec\">" + "ÓĞ»á" + "</td>";
+					// TODO é¡ºä¾¿æ ¹æ®å…ƒç´ é‡Œçš„å†…å®¹å¤„ç†é“¾æ¥å’Œæ ·å¼
+					strHTML += "<td class=\"spec\">" + "æœ‰ä¼š" + "</td>";
 				}
 			}
 			strHTML += "</tr>\n";
 			
-			// ÏÂÎç
-			strHTML += "<tr><td>ÏÂÎç</td>";
+			// ä¸‹åˆ
+			strHTML += "<tr><td>ä¸‹åˆ</td>";
 			for (int n = 0; n < 7; n++) {
 				if (formatData[i][n][1] == null) {
-					strHTML += "<td>" + "¿ÕÏĞ" + "</td>";
+					strHTML += "<td>" + "ç©ºé—²" + "</td>";
 				} else {
-					// TODO Ë³±ã¸ù¾İÔªËØÀïµÄÄÚÈİ´¦ÀíÁ´½ÓºÍÑùÊ½
-					strHTML += "<td class=\"spec\">" + "ÓĞ»á" + "</td>";
+					// TODO é¡ºä¾¿æ ¹æ®å…ƒç´ é‡Œçš„å†…å®¹å¤„ç†é“¾æ¥å’Œæ ·å¼
+					strHTML += "<td class=\"spec\">" + "æœ‰ä¼š" + "</td>";
 				}
 			}
 			strHTML += "</tr>\n";
@@ -174,7 +174,7 @@ public class MeetingManage {
 			writer.write(strHTML); 
 			writer.close(); 
 		} catch (Exception e) { 
-			System.out.println("Ğ´ÎÄ¼şÄÚÈİ²Ù×÷³ö´í"); 
+			System.out.println("å†™æ–‡ä»¶å†…å®¹æ“ä½œå‡ºé”™"); 
 			e.printStackTrace(); 
 		} 
 	}
@@ -200,7 +200,7 @@ public class MeetingManage {
 				new String(""), 
 				getDate("2015-03-25 12:59:00"),
 				getDate("2015-04-30 21:00:00"),
-				new String("»áÒéÊÒ11"),
+				new String("ä¼šè®®å®¤11"),
 				new String("")));
 		
 		
