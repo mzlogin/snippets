@@ -44,3 +44,7 @@ GTAGS
 
 # mac
 .DS_Store
+
+# php
+PHP/composer.lock
+PHP/vendor/
