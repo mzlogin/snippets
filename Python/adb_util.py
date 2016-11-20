@@ -16,15 +16,11 @@ class AdbUtil(object):
             self.cmd_prefix = 'adb -s %s' % self.device
 
     def touch(self, coordinate):
-        cmd = '%s shell input tap %d %d' % (self.cmd_prefix, coordinate[0], coordinate[1])
-        os.system(cmd)
+        self.run_cmd('shell input tap %d %d' % (coordinate[0], coordinate[1]))
 
     def get_resolution(self):
         pattern = re.compile(r'.* (\d+)x(\d+).*')
-        cmd = '%s shell wm size' % self.cmd_prefix
-        proc = os.popen(cmd)
-        output = ''.join(proc.readlines())
-        proc.close()
+        output = self.run_cmd('shell wm size')
         rematch = pattern.match(output)
         if rematch is not None:
             resolution = [int(rematch.group(1)), int(rematch.group(2))]
@@ -34,10 +30,7 @@ class AdbUtil(object):
 
     def get_density(self):
         pattern = re.compile(r'Physical density: (\d+)')
-        cmd = '%s shell wm density' % self.cmd_prefix
-        proc = os.popen(cmd)
-        output = ''.join(proc.readlines())
-        proc.close()
+        output = self.run_cmd('shell wm density')
         rematch = pattern.match(output)
         if rematch is not None:
             density = int(rematch.group(1))
@@ -59,6 +52,51 @@ class AdbUtil(object):
 
         return (math.sqrt(math.pow(resolution[0],2)+math.pow(resolution[1],2))/density)
 
+    def get_ip(self):
+        pattern = re.compile(r'wlan0: ip ([\d\.]+) mask.*')
+        output = self.run_cmd('shell ifconfig wlan0')
+        rematch = pattern.match(output)
+        if rematch is None:
+            rematch = re.search(r'.*inet addr:([\d\.]+)  Bcast:.*', output)
+
+        if rematch is not None:
+            ip = rematch.group(1)
+            return ip
+        else:
+            return None
+
+    def listen(self, port):
+        pattern = re.compile(r'restarting in TCP mode port.*')
+        output = self.run_cmd('tcpip %d' % port)
+        rematch = pattern.match(output)
+        if rematch is not None:
+            return True
+        else:
+            return False
+
+    def connect_wireless(self):
+        ip = self.get_ip()
+        if ip is None:
+            return False
+
+        if not self.listen(5555):
+            return False
+
+        pattern = re.compile(r'connected to .*')
+        output = self.run_cmd('connect %s' % ip)
+        rematch = pattern.match(output)
+        if rematch is not None:
+            return True
+        else:
+            return False
+
+    def run_cmd(self, cmd):
+        command = '%s %s' % (self.cmd_prefix, cmd)
+        proc = os.popen(command)
+        output = ''.join(proc.readlines())
+        proc.close()
+        return output
+
 def usage():
     print("""
           usage: python adb_util.py [options]
@@ -68,11 +106,13 @@ def usage():
           -s | --size       get screen size in Inch
           -r | --resolution get resolution
           -d | --density    get density
+          -w | --wireless   connect device wireless
+          -i | --ip         get ip
           """)
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'srd', ['size', 'resolution', 'density'])
+        opts, args = getopt.getopt(sys.argv[1:], 'srdwi', ['size', 'resolution', 'density', 'wireless', 'ip'])
     except getopt.GetoptError as err:
         opts = []
 
@@ -101,6 +141,18 @@ def main():
                 print('get density failed')
             else:
                 print('density is %d' % density)
+        elif o in ('-w', '--wireless'):
+            ret = adb.connect_wireless()
+            if ret:
+                print('connect wireless succeed')
+            else:
+                print('connect wireless failed')
+        elif o in ('-i', '--ip'):
+            ip = adb.get_ip()
+            if ip is None:
+                print('get ip failed')
+            else:
+                print('ip is %s' % ip)
 
 if __name__ == '__main__':
     main()
