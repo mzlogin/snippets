@@ -68,6 +68,10 @@ class AdbUtil(object):
     def listen(self, port):
         pattern = re.compile(r'restarting in TCP mode port.*')
         output = self.run_cmd('tcpip %d' % port)
+
+        if len(output) == 0: # spcial case for Nexus 5
+            return True
+
         rematch = pattern.match(output)
         if rematch is not None:
             return True
