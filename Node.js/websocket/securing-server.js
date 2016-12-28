@@ -2,6 +2,8 @@
  * Created by mazhuang on 2016/9/19.
  */
 
+// reference http://www.chovy.com/web-development/self-signed-certs-with-secure-websockets-in-node-js/
+
 var express = require('express');
 var ws = require('ws');
 var fs = require('fs');
