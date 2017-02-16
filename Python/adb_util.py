@@ -94,6 +94,12 @@ class AdbUtil(object):
         else:
             return False
 
+    def screencap(self, filename):
+        sdfile = '/sdcard/%s' % filename
+        self.run_cmd('shell screencap -p %s' % sdfile)
+        self.run_cmd('pull %s' % sdfile)
+        return os.path.exists(filename)
+
     def run_cmd(self, cmd):
         command = '%s %s' % (self.cmd_prefix, cmd)
         proc = os.popen(command)
@@ -112,11 +118,12 @@ def usage():
           -d | --density    get density
           -w | --wireless   connect device wireless
           -i | --ip         get ip
+          -p | --screencap  save screencap to file
           """)
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'srdwi', ['size', 'resolution', 'density', 'wireless', 'ip'])
+        opts, args = getopt.getopt(sys.argv[1:], 'srdwip:', ['size', 'resolution', 'density', 'wireless', 'ip', 'screepcap='])
     except getopt.GetoptError as err:
         opts = []
 
@@ -157,6 +164,12 @@ def main():
                 print('get ip failed')
             else:
                 print('ip is %s' % ip)
+        elif o in ('-p', '--screencap'):
+            ret = adb.screencap(a)
+            if ret:
+                print('save screencap to %s' % a)
+            else:
+                print('screencap failed')
 
 if __name__ == '__main__':
     main()
