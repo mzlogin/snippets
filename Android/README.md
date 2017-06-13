@@ -2,7 +2,11 @@
 
 **目录**
 
+<!-- vim-markdown-toc GFM -->
 * [不加载到内存获取图片尺寸](#不加载到内存获取图片尺寸)
+* [模态 loading](#模态-loading)
+
+<!-- vim-markdown-toc -->
 
 ## 不加载到内存获取图片尺寸
 
@@ -18,6 +22,8 @@ int height = opt.outHeight;
 参考：<http://blog.csdn.net/javy_codercoder/article/details/49684761>
 
 ## 模态 loading
+
+DialogUtil.java
 
 ```java
 public abstract class DialogUtil {
@@ -53,6 +59,8 @@ public abstract class DialogUtil {
     }
 }
 ```
+
+layout/window_loading.xml
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
