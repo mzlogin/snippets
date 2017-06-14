@@ -48,3 +48,6 @@ GTAGS
 # php
 PHP/composer.lock
 PHP/vendor/
+
+# nodejs
+.vscode/
