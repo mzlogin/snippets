@@ -7,6 +7,16 @@ public class DateFormatDemo {
     public static void main(String[] args) {
         formatDemo();
         dateCalc();
+
+        Date begin = new Date(2017, 10, 5, 6, 0);
+        Date end = new Date(2018, 10, 5, 6, 0);
+        System.out.println(calcDateDiffSeconds(begin, end));
+        System.out.println(calcDateDiffSeconds(begin, end));
+    }
+
+    public static int calcDateDiffSeconds(Date begin, Date end) {
+        Long value = (end.getTime() - begin.getTime()) / 1000;
+        return value.intValue();
     }
 
     public static void formatDemo() {
