@@ -39,20 +39,20 @@ public class DateFormatDemo {
     }
 
     public static void dateCalc() {
-        // ½ñÌì
+        // ä»Šå¤©
         Calendar base = Calendar.getInstance();
-        // ¿ÉÒÔÉè¶¨ÎªÄ³Ìì
-        base.set(2015, 3 - 1, 1);  // ÔÂ·İ´Ó0¿ªÊ¼£¬Éè3ÔÂÒªĞ´2ÔÂ
+        // å¯ä»¥è®¾å®šä¸ºæŸå¤©
+        base.set(2015, 3 - 1, 1);  // æœˆä»½ä»0å¼€å§‹ï¼Œè®¾3æœˆè¦å†™2æœˆ
 
-        // ±¾ÖÜ
+        // æœ¬å‘¨
         Calendar monday = DateCalcUtil.calc(base, DateCalcUtil.GET_THIS_MONDAY);
         Calendar sunday = DateCalcUtil.calc(base, DateCalcUtil.GET_THIS_SUNDAY);
 
-        // ÏÂÖÜ
+        // ä¸‹å‘¨
         Calendar nextMonday = DateCalcUtil.calc(base, DateCalcUtil.GET_NEXT_MONDAY);
         Calendar nextSunday = DateCalcUtil.calc(base, DateCalcUtil.GET_NEXT_SUNDAY);
 
-        // ÉÏÖÜ
+        // ä¸Šå‘¨
         Calendar previousMonday = DateCalcUtil.calc(base, DateCalcUtil.GET_PREVIOUS_MONDAY);
         Calendar previousSunday = DateCalcUtil.calc(base, DateCalcUtil.GET_PREVIOUS_SUNDAY);
     }
@@ -67,8 +67,8 @@ public class DateFormatDemo {
 
         public static Calendar calc(Calendar base, int calcType) {
 
-            int min = base.getActualMinimum(Calendar.DAY_OF_WEEK); // »ñÈ¡ÕâÒ»ÖÜ¿ªÊ¼»ù×¼
-            int current = base.get(Calendar.DAY_OF_WEEK); // »ñÈ¡µ±ÌìÔÚÕâÒ»ÖÜÄÚÌìÊı
+            int min = base.getActualMinimum(Calendar.DAY_OF_WEEK); // è·å–è¿™ä¸€å‘¨å¼€å§‹åŸºå‡†
+            int current = base.get(Calendar.DAY_OF_WEEK); // è·å–å½“å¤©åœ¨è¿™ä¸€å‘¨å†…å¤©æ•°
             Calendar calendar = (Calendar)base.clone();
 
             int nCount = (current == min) ? -6 : (min - current + 1);
