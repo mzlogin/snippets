@@ -1,0 +1,19 @@
+# 根据 Excel 数据生成图片工具使用说明
+
+## 安装
+
+1. 安装 Python3，下载地址：https://www.python.org/downloads/
+2. pip3 install -r requirements.txt
+3. 安装思源黑体，下载地址：https://github.com/Pal3love/Source-Han-TrueType/raw/master/SourceHanSansCN.7z
+4. 安装 wkhtmltopdf，下载地址：https://wkhtmltopdf.org/downloads.html，注意安装目录不要包含中文，Windows 下安装后需要后动将 bin 目录添加到 PATH 环境变量
+
+## 运行
+
+python3 main.py 参数.xlsx
+
+程序会遍历「参数.xlsx」文件里的每一个 sheet，在当前目录给每个 sheet 生成一个 sheet name 对应的文件夹，每一行数据输出一个「skuname.jpg」的文件。
+
+注意事项：每个 sheet 里应该有一列名为「SKU编码」。
+
+------
+Powered by https://mazhuang.org
