@@ -71,7 +71,7 @@ def process(src_filename):
         if not os.path.exists(sheetname):
             os.mkdir(sheetname)
         for row in src_sheet.rows:
-            values = [str(cell.value).strip() if cell.value else '' for cell in row]
+            values = [str(cell.value).strip().replace('\n', '<br>') if cell.value else '' for cell in row]
             if first_line:
                 first_line = False
                 headers = values
